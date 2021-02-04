@@ -1,19 +1,78 @@
 'use strict';
 
-let test = prompt('Введите тестовый аргумент')
-
-let extraLesson4Function = function (param) {
-    if (typeof(param) !== 'string') {
-        alert('Введенный аргумент должен быть строкой. Повторите ввод');
-        test = prompt('На этот раз введите строку)');
-    }
-
-    if (param.length <= 30) {
-        return param.trim();
-    } else {
-        param.trim();
-        return (param.substr(0, 29) + '...');
-    }   
+let isNumber = function (n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
-console.log(extraLesson4Function(test));
+
+let gameBot = function () {
+
+    function getRandomInt() {
+        let min = Math.ceil(1);
+        let max = Math.floor(100);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    
+    }
+    
+    let myNumber =  getRandomInt();
+    console.log (myNumber);
+    let i = 10;
+
+    let game = function () {
+
+        let start;
+
+        let counter = function () {
+            i = i - 1;
+            return i;
+        };
+
+        if (i === 1) {
+
+            let newGame = confirm ('Попытки закончились. Хотите сыграть еще раз?');
+            if (newGame) {
+                gameBot();
+            } else {
+                return alert('До новых встреч!');
+            }
+
+        } else {
+
+            start = prompt('Я загадал число от 1 до 100. Попробуйте его угадать:');
+
+            switch (start) {
+
+                case (null): 
+
+                    alert('Игра окончена');
+                    break;
+
+                default: 
+
+                    if (!isNumber(start)) {
+                        alert('Введи число!');
+                        game();
+                    } else if ( +start > myNumber ) {
+                        alert('Загаданное число меньше, осталось попыток: ' + counter());
+                        game();
+                    } else if ( +start < myNumber ) {
+                        alert('Загаданное число больше, осталось попыток: ' + counter());
+                        game();
+                    } else if ( +start === myNumber ) {
+                        let newGame = confirm ('Поздравляю, Вы угадали!!! Хотите сыграть еще раз?');
+                            if (newGame) {
+                                gameBot();
+                            } else {
+                                alert('До новых встреч!');
+                                break;
+                            }
+                    }
+            }
+        }
+    };
+
+    game();
+
+};
+
+gameBot();
