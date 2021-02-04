@@ -1,78 +1,19 @@
 'use strict';
 
-let isNumber = function (n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-};
+let arr = ['4939', '123', '2558', '1311', '987', '567', '45'];
 
-
-let gameBot = function () {
-
-    function getRandomInt() {
-        let min = Math.ceil(1);
-        let max = Math.floor(100);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    
+for ( let i = 0; i < arr.length; i++ ) {
+    if ( arr[i][0] === '4' ||arr[i][0] === '2' ) {
+        console.log( +arr[i] );
     }
-    
-    let myNumber =  getRandomInt();
-    console.log (myNumber);
-    let i = 10;
+}
 
-    let game = function () {
+label: for (let x = 2; x <= 100; x++) {
+    for (let y = 2; y < x; y++) {
 
-        let start;
-
-        let counter = function () {
-            i = i - 1;
-            return i;
-        };
-
-        if (i === 1) {
-
-            let newGame = confirm ('Попытки закончились. Хотите сыграть еще раз?');
-            if (newGame) {
-                gameBot();
-            } else {
-                return alert('До новых встреч!');
-            }
-
-        } else {
-
-            start = prompt('Я загадал число от 1 до 100. Попробуйте его угадать:');
-
-            switch (start) {
-
-                case (null): 
-
-                    alert('Игра окончена');
-                    break;
-
-                default: 
-
-                    if (!isNumber(start)) {
-                        alert('Введи число!');
-                        game();
-                    } else if ( +start > myNumber ) {
-                        alert('Загаданное число меньше, осталось попыток: ' + counter());
-                        game();
-                    } else if ( +start < myNumber ) {
-                        alert('Загаданное число больше, осталось попыток: ' + counter());
-                        game();
-                    } else if ( +start === myNumber ) {
-                        let newGame = confirm ('Поздравляю, Вы угадали!!! Хотите сыграть еще раз?');
-                            if (newGame) {
-                                gameBot();
-                            } else {
-                                alert('До новых встреч!');
-                                break;
-                            }
-                    }
-            }
+        if (x % y == 0)  {
+        continue label;
         }
-    };
-
-    game();
-
-};
-
-gameBot();
+    }
+    console.log ('Простое число: ' + x + '. Делится на 1 и на ' + x);
+}
