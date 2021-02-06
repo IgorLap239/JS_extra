@@ -1,19 +1,32 @@
 'use strict';
 
-let arr = ['4939', '123', '2558', '1311', '987', '567', '45'];
+let week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресение'];
 
-for ( let i = 0; i < arr.length; i++ ) {
-    if ( arr[i][0] === '4' ||arr[i][0] === '2' ) {
-        console.log( +arr[i] );
+let date = new Date();
+
+let outWeek = document.getElementById('out_week');
+let str = ' ';
+
+let getEuDay = function () {
+    let y;
+    if (date.getDay() >= 1) {
+        y = date.getDay() - 1;
+    } else if (date.getDay() === 0) {
+        y = 6;
+    }
+    return y;
+};
+
+for (let i = 0; i < week.length; i++) {
+    if ( i !== 5 && i !== 6 && i !== getEuDay() ) {
+        str += week[i] + '<br>';
+    } else if ( i !== getEuDay() && (i === 5 || i === 6) ) {
+        str += '<i>' + week[i] + '</i>' + '<br>';
+    } else if ( i === getEuDay() && i !== 5 && i !== 6 ) {
+        str += '<b>' + week[i] + '</b>' + '<br>';
+    } else if ( i === getEuDay() && (i === 5 || i === 6) ) {
+        str += '<b>' + '<i>' + week[i] + '</i>' + '</b>' + '<br>';
     }
 }
 
-label: for (let x = 2; x <= 100; x++) {
-    for (let y = 2; y < x; y++) {
-
-        if (x % y == 0)  {
-        continue label;
-        }
-    }
-    console.log ('Простое число: ' + x + '. Делится на 1 и на ' + x);
-}
+outWeek.innerHTML = str;
